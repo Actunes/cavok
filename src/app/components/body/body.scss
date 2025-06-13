@@ -1,0 +1,85 @@
+@use 'sass:color';
+
+$primary-dark: #121212;
+$primary-gold: #E7DE79;
+$primary-green: #4D5200;
+$primary-cyan: #97F9E7;
+$text-light: #FFFFFF;
+$text-muted: #BBBBBB;
+
+body {
+  background-color: $primary-dark;
+  color: $text-light;
+  font-family: 'Inter', sans-serif;
+}
+
+.body-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+// 3. Customização da Navegação
+.navbar-brand {
+  color: $text-light !important;
+}
+
+.hero-section h1 {
+  color: $text-light;
+  span {
+    color:  $primary-gold;
+  }
+}
+
+.hero-section .lead {
+  color: $text-muted;
+}
+
+#start-button{
+        padding: 12px;
+        padding-right: 25px;    
+        padding-left: 25px;
+    background-color: #4D5200;
+    color: #E7DE79;
+    font-family: 'Inter', sans-serif; 
+    font-weight: 400;
+    font-size: 16px;
+    i {
+        background-color: #4D5200;
+        font-size: 22px;
+        margin-left: 12px;
+        color: #E7DE79;
+    }
+    border-radius: 10px;
+    border-color: #E7DE79;
+}
+
+.hero-visuals {
+  position: relative;
+  min-height: 300px; // Garante espaço para o posicionamento
+
+  .airplane-img {
+    width: 913px;
+    max-width: 100%;
+    height: auto;
+
+    position: relative; // Para ficar acima das nuvens
+    z-index: 2;
+    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.4));
+  }
+}
+
+.controls-sidebar {
+  position: absolute;
+  width: 40px;
+  top: 25%;
+  right: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
