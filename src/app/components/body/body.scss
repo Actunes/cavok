@@ -14,7 +14,8 @@ body {
 }
 
 .body-container {
-  min-height: 100vh;
+  min-height: 75vh;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -81,5 +82,3 @@ body {
   flex-direction: column;
   gap: 15px;
 }
-
-

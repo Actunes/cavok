@@ -1,0 +1,43 @@
+// Importando as variáveis de cor para manter a consistência
+$primary-gold: #E7DE79;
+
+.about-container {
+  // O fundo já é definido globalmente no styles.scss, então não precisamos repetir
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+h1, h2 {
+  font-weight: 700;
+  span {
+    color: $primary-gold;
+  }
+}
+
+.lead {
+  font-size: 1.15rem;
+  color: #c9c9c9; // Um pouco mais claro que o muted para destaque
+}
+
+p {
+  color: #bbbbbb; // Cor do texto muted
+  line-height: 1.7;
+}
+
+.text-gold {
+  color: $primary-gold;
+}
+
+.team-card img {
+  border: 3px solid $primary-gold;
+  padding: 5px;
+  background-color: #2c2c2c;
+}
+
+.value-item i {
+  transition: transform 0.3s ease;
+}
+
+.value-item:hover i {
+  transform: scale(1.1);
+}
