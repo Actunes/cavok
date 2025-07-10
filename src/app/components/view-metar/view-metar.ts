@@ -175,7 +175,7 @@ export class ViewMetar implements OnInit {
     })
   }
 
-  carregarDadosTarefa(metar: Metar) {
+  loadinDataMetar(metar: Metar) {
     this.form.patchValue({
       icao: metar.icao,
       day: metar.day,
