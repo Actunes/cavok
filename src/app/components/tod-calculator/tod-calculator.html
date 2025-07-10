@@ -1,0 +1,50 @@
+<div class="container mt-5">
+    <div class="calculator-card">
+        <h2 class="text-center mb-4">Top of Descent (TOD) Calculator</h2>
+
+        <form [formGroup]="todForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="currentAltitude" class="form-label">Current altitude (ft)</label>
+                        <input type="number" id="currentAltitude" class="form-control"
+                            formControlName="currentAltitude">
+                    </div>
+                    <div class="mb-3">
+                        <label for="targetAltitude" class="form-label">Target Altitude (ft)</label>
+                        <input type="number" id="targetAltitude" class="form-control" formControlName="targetAltitude">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="groundSpeed" class="form-label">Ground Speed (kt)</label>
+                        <input type="number" id="groundSpeed" class="form-control" formControlName="groundSpeed">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descentRate" class="form-label">Rate of descent (fpm)</label>
+                        <input type="number" id="descentRate" class="form-control" formControlName="descentRate">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="results-section mt-4" *ngIf="todDistance !== null && timeToDescend !== null">
+            <h4 class="text-center">Result</h4>
+            <div class="d-flex justify-content-around mt-3">
+                <div class="result-item text-center">
+                    <div class="result-value">{{ todDistance }}</div>
+                    <div class="result-label">NM to TOD</div>
+                </div>
+                <div class="result-item text-center">
+                    <div class="result-value">{{ timeToDescend }}</div>
+                    <div class="result-label">Minutes to Descent</div>
+                </div>
+            </div>
+        </div>
+        <div class="results-section mt-4 text-center" *ngIf="todDistance === null">
+            <p class="text-muted">Enter valid values to calculate Top of Descent.</p>
+        </div>
+
+    </div>
+</div>

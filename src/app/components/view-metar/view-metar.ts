@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MetarService } from "../../service/metar.service";
-import { Metar } from "../../models/metar";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MetarService } from "../../app-core/service/metar.service";
+import { Metar } from "../../app-core/models/metar";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';
 declare var $: any;
 import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-view-metar',
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './view-metar.html',
   styleUrl: './view-metar.scss'
 })

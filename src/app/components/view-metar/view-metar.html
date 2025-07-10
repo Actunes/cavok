@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <h2>List of Metar
-        <button class="btn btn-primary btn-arrendondamento" (click)="openModal();form.reset()">
+        <button class="btn btn-primary btn-rounded btn-new" (click)="openModal();form.reset()">
             <i class="fas fa-plus"></i>
             New Metar
         </button>
@@ -17,16 +17,14 @@
                 <th scope="col">Temp</th>
                 <th scope="col">Dew Point</th>
                 <th scope="col">Qnh</th>
-                <th scope="col">Actions
-                    <i class="fas fa-cog"></i>
-                </th>
+                <th scope="col">Actions<i class="fas fa-cog"></i></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let t of metars; let i = index">
                 <th scope="row"> {{ i + 1 }} </th>
                 <td> {{ t?.icao }} </td>
-                <td> {{ t?.day | date: 'dd/MM/yyyy' }} </td>
+                <td> {{ t?.day }} </td>
                 <td> {{ t?.hour }} </td>
                 <td> {{ t?.wind }} </td>
                 <td> {{ t?.infos }} </td>
@@ -34,14 +32,14 @@
                 <td> {{ t?.dew_point }} </td>
                 <td> {{ t?.qnh }} </td>
                 <td>
-                    <button class="btn btn-danger rounded-circle" (click)="deleteMetar(t.id ? t.id : 0)">
+                    <button class="btn btn-danger btn-tools" (click)="deleteMetar(t.id ? t.id : 0)">
                         <i class="fas fa-trash-alt"></i>
                     </button>
 
-                    - <button class="btn btn-warning rounded-circle" (click)="loadinDataMetar(t)">
+                    | <button class="btn btn-warning btn-tools" (click)="loadinDataMetar(t)">
                         <i class="fas fa-edit"></i>
                     </button>
-                    - <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal"
+                    | <button type="button" class="btn btn-primary btn-tools" data-toggle="modal"
                         data-target="#metarModal" (click)="setCurrentMetar(t)">
                         <i class="fas fa-eye"></i>
                     </button>
@@ -58,13 +56,13 @@
 <!-- MODAL DE CADASTRO/EDIÇÃO -->
 <div class="modal" tabindex="-1" id="add-metar">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content modal-bg">
+            <div class="modal-header ">
                 <h5 class="modal-title">
-                    <ng-container *ngIf="form.value.id > 0; else novaTarefa">
+                    <ng-container *ngIf="form.value.id > 0; else newMetar">
                         Edit Metar
                     </ng-container>
-                    <ng-template #novaTarefa>
+                    <ng-template #newMetar>
                         Add Metar
                     </ng-template>
                 </h5>
@@ -74,91 +72,103 @@
                 <div class="modal-body">
                     <div class="form-row">
                         <!--Icao-->
-                        <div class="mb-3 col-md-12">
-                            <label for="icao" class="form-label">Icao
-                            </label>
-                            <input type="text" class="form-control" id="icao" formControlName="icao" placeholder="Icao">
 
-                            <div *ngIf="isCampoValido('icao')" class="text-danger">
-                                Campo Obrigatório
+                        <div class="mb-3 col-md-12">
+                            <label for="icao" class="form-label">Icao [Aerodrome]
+                            </label>
+                            <input type="text" class="form-control" id="icao" formControlName="icao">
+                            <div *ngIf="isfieldValid('icao')" class="text-danger">
+                                Field Required
                             </div>
                         </div>
+
                         <!--Day-->
-                        <div class="mb-3 col-md-12">
-                            <label for="day" class="form-label">day
-                            </label>
-                            <input type="text" class="form-control" id="day" formControlName="day" placeholder="day">
 
-                            <div *ngIf="isCampoValido('day')" class="text-danger">
-                                Campo Obrigatório
+                        <div class="mb-3 col-md-12">
+                            <label for="day" class="form-label">Day [Number]
+                            </label>
+                            <input type="text" class="form-control" id="day" formControlName="day">
+
+                            <div *ngIf="isfieldValid('day')" class="text-danger">
+                                Field Required
                             </div>
                         </div>
-                        <!--Hour-->
-                        <div class="mb-3 col-md-12">
-                            <label for="Hour" class="form-label">Hour
-                            </label>
-                            <input type="text" class="form-control" id="Hour" formControlName="Hour" placeholder="Hour">
 
-                            <div *ngIf="isCampoValido('Hour')" class="text-danger">
-                                Campo Obrigatório
+                        <!--hour-->
+
+                        <div class="mb-3 col-md-12">
+                            <label for="hour" class="form-label">Hour [Number - Zulu Time]
+                            </label>
+                            <input type="text" class="form-control" id="hour" formControlName="hour">
+                            <div *ngIf="isfieldValid('hour')" class="text-danger">
+                                Field Required
                             </div>
                         </div>
+
                         <!--Wind-->
-                        <div class="mb-3 col-md-12">
-                            <label for="wind" class="form-label">wind
-                            </label>
-                            <input type="text" class="form-control" id="wind" formControlName="wind" placeholder="wind">
 
-                            <div *ngIf="isCampoValido('wind')" class="text-danger">
-                                Campo Obrigatório
+                        <div class="mb-3 col-md-12">
+                            <label for="wind" class="form-label">Wind [Number]
+                            </label>
+                            <input type="text" class="form-control" id="wind" formControlName="wind">
+                            <div *ngIf="isfieldValid('wind')" class="text-danger">
+                                Field Required
                             </div>
                         </div>
+
                         <!--infos-->
+
                         <div class="mb-3 col-md-12">
-                            <label for="infos" class="form-label">infos
+                            <label for="infos" class="form-label">Infos
                             </label>
                             <input type="text" class="form-control" id="infos" formControlName="infos"
                                 placeholder="infos">
-
-                            <div *ngIf="isCampoValido('infos')" class="text-danger">
-                                Campo Obrigatório
+                            <div *ngIf="isfieldValid('infos')" class="text-danger">
+                                Field Required
                             </div>
                         </div>
+
                         <!--temp-->
+
                         <div class="mb-3 col-md-12">
-                            <label for="temp" class="form-label">temp
+                            <label for="temp" class="form-label">Temp [Number in °C]
                             </label>
                             <input type="text" class="form-control" id="temp" formControlName="temp" placeholder="temp">
+                            <div *ngIf="isfieldValid('temp')" class="text-danger">
+                                Field Required
+                            </div>
+                        </div>
 
-                            <div *ngIf="isCampoValido('temp')" class="text-danger">
-                                Campo Obrigatório
-                            </div>
-                        </div>
                         <!--dew_point-->
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" for="dew_point">dew_point
+
+                        <div class="mb-3 col-md-12">
+                            <label for="dew_point" class="form-label">Dew Point [Number]
                             </label>
-                            <input class="form-control" type="datetime-local" id="dew_point"
-                                formControlName="dew_point">
-                            <div *ngIf="isCampoValido('dew_point')" class="text-danger">
-                                Campo Obrigatório
+                            <input type="text" class="form-control" id="dew_point" formControlName="dew_point"
+                                placeholder="dew_point">
+                            <div *ngIf="isfieldValid('dew_point')" class="text-danger">
+                                Field Required
                             </div>
                         </div>
+
                         <!--qnh-->
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" for="dew_point">qnh
+
+                        <div class="mb-3 col-md-12">
+                            <label for="qnh" class="form-label">Altimeter [Qnh]
                             </label>
-                            <input class="form-control" type="datetime-local" id="qnh" formControlName="qnh">
-                            <div *ngIf="isCampoValido('qnh')" class="text-danger">
-                                Campo Obrigatório
+                            <input type="text" class="form-control" id="qnh" formControlName="qnh" placeholder="qnh">
+
+                            <div *ngIf="isfieldValid('qnh')" class="text-danger">
+                                Field Required
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-bs-dismiss="modal" (click)="closeModal()">Close
                     </button>
-                    <button class="btn btn-success" type="submit">Salvar</button>
+                    <button class="btn btn-success" type="submit">Save</button>
                 </div>
             </form>
         </div>
@@ -171,7 +181,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="View">
-                    Datelhes da Tarefa
+                    Metar Details
                 </h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     &times;
@@ -181,25 +191,25 @@
                 <p> <strong>Icao: </strong>
                     {{ metarView?.icao }}
                 </p>
-                <p> <strong>Descrição: </strong>
+                <p> <strong>Day: </strong>
                     {{ metarView?.day }}
                 </p>
-                <p> <strong>Status: </strong>
+                <p> <strong>Hour: </strong>
                     {{ metarView?.hour }}
                 </p>
-                <p> <strong>Data Inicio: </strong>
+                <p> <strong>Wind: </strong>
                     {{ metarView?.wind }}
                 </p>
-                <p> <strong>Data Conclusão: </strong>
+                <p> <strong>Infos: </strong>
                     {{ metarView?.infos }}
                 </p>
-                <p> <strong>Data Conclusão: </strong>
+                <p> <strong>Temp: </strong>
                     {{ metarView?.temp }}
                 </p>
-                <p> <strong>Data Conclusão: </strong>
+                <p> <strong>Dew Point: </strong>
                     {{ metarView?.dew_point }}
                 </p>
-                <p> <strong>Data Conclusão: </strong>
+                <p> <strong>Altimeter: </strong>
                     {{ metarView?.qnh }}
                 </p>
             </div>
